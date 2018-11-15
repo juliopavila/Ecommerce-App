@@ -1,1 +1,13 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content" class="bgcolor">
+    <ion-header>
+      <ion-toolbar>
+        <ion-item no-lines text-center class="clear item-logo">
+            <img  src="../assets/imgs/logo-xenlism.png" class="icon-logo">
+        </ion-item>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <header-menu></header-menu>
+    </ion-content>
+  </ion-menu>
+  <ion-nav [root]="rootPage" #content></ion-nav>

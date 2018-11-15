@@ -1,0 +1,51 @@
+
+<ion-header>
+</ion-header>
+
+
+<ion-content padding class="bg">
+
+  <ion-item class="clear item-logo" no-lines text-center>
+    <img  src="../../assets/imgs/logo-xenlism.png" class="icon-logo">
+  </ion-item>
+
+  <form [formGroup]="fg" (ngSubmit)="register()">
+    <ion-item class="clear">
+      <ion-label color="light" floating>Name</ion-label>
+      <ion-input class="input-text" type="text" value="" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item class="clear ">
+      <ion-label color="light" floating>Last Name</ion-label>
+      <ion-input type="text" value="" formControlName="lastname"></ion-input>
+    </ion-item>
+
+    <ion-item class="clear ">
+      <ion-label color="light" floating>Email</ion-label>
+      <ion-input type="text" value="" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item class="clear ">
+      <ion-label color="light" floating>Username</ion-label>
+      <ion-input type="text" value="" formControlName="username"></ion-input>
+    </ion-item>
+
+    <ion-item class="clear ">
+      <ion-label color="light" floating>Password</ion-label>
+      <ion-input type="password" formControlName="password" value=""></ion-input>
+    </ion-item>
+
+    <ion-item class="clear">
+      <ion-label color="light" floating>Confirm Password</ion-label>
+      <ion-input type="password" formControlName="confPass" value=""></ion-input>
+    </ion-item>
+
+    <ion-item no-lines class="clear" style="text-align: center;">
+      <button ion-button center outline class="btn-out" [disabled]="fg.invalid" type="submit">SIGN UP</button>
+    </ion-item>
+
+    <ion-item no-lines class="clear">
+      <button color="light" ion-button clear full (click)="redirect(1)">IF YOU HAVE AN ACCOUNT, LOGIN</button>
+    </ion-item>
+  </form>
+</ion-content>

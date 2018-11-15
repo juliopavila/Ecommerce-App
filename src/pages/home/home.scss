@@ -1,3 +1,43 @@
 page-home {
 
+  .bg{
+    background-image: url(../../assets/imgs/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .clear {
+    background-color: transparent;
+  }
+
+  .item-logo{
+    margin-top: 100px !important;
+  }
+
+  .item-p{
+    margin-top: 40px !important;
+  }
+
+  .icon-logo{
+    height: 119px;
+    width: 125px;
+  }
+
+  .p-header{
+    color: #ECECEC;
+    font-size: 30px !important;
+  }
+
+  .input-text{
+    color: #ECECEC !important;
+  }
+
+  .btn-out{
+    border-color: #ECECEC !important;
+    color: #ECECEC !important;
+    border-width: 1.5px !important;
+    border-radius: 0px !important;
+    width: 150px !important;
+  }
+
 }

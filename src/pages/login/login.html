@@ -1,0 +1,29 @@
+<ion-header>
+  </ion-header>
+
+  <ion-content padding class="bg">
+
+    <ion-item no-lines text-center class="clear item-logo">
+        <img  src="../../assets/imgs/logo-xenlism.png" class="icon-logo">
+    </ion-item>
+
+    <form [formGroup]="fg" (ngSubmit)="change(2)">
+      <ion-item class="clear">
+        <ion-label color="dark" floating>Username</ion-label>
+        <ion-input type="text" value=""  class="input-text" formControlName="username"></ion-input>
+      </ion-item>
+
+      <ion-item class="clear">
+        <ion-label color="dark" floating>Password</ion-label>
+        <ion-input type="password" class="input-text" formControlName="password"></ion-input>
+      </ion-item>
+
+      <ion-item no-lines class="clear" style="text-align: center;">
+        <button ion-button center outline class="btn-out" [disabled]="fg.invalid" type="submit">LOGIN</button>
+      </ion-item>
+    </form>
+    <ion-item no-lines class="clear">
+      <button color="light" ion-button clear full (click)="change(1)">IF YOU DON'T HAVE AN ACCOUNT, SIGN UP</button>
+    </ion-item>
+  </ion-content>
+

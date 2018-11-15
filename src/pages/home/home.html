@@ -1,14 +1,24 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content  class="bg">
+  <ion-item class="clear item-logo" no-lines text-center>
+    <img  src="../../assets/imgs/logo-xenlism.png" class="icon-logo">
+  </ion-item>
+
+  <ion-item class="clear item-p" no-lines text-center>
+    <p class="p-header">The most fulfilling</p>
+    <p class="p-header">shopping experience</p>
+  </ion-item>
+
+  <ion-grid no-lines class="clear item-p">
+      <ion-row text-center>
+        <ion-col col-6>
+          <button ion-button center outline class="btn-out" (click)="redirect(1)">LOGIN</button>
+        </ion-col>
+        <ion-col col-6>
+            <button ion-button center outline class="btn-out" (click)="redirect(2)">SIGN UP</button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
 </ion-content>

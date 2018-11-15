@@ -1,0 +1,39 @@
+page-dashboard {
+
+  .toolbar-background {
+    background-color: #454545;
+  }
+
+  .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default{
+    color: #ECECEC;
+  }
+
+  .item-md {
+    background-color: #454545;
+  }
+
+  .item-input ion-input{
+    color: #ECECEC;
+  }
+
+  .item-md.item-input.input-has-focus .item-inner{
+    box-shadow: none;
+  }
+
+//   .card-md p {
+//     margin: 0 0 2px;
+//     font-size: 12px;
+//     font-weight: normal;
+//     line-height: 1.5;
+//     color: #222;
+//   }
+
+//   .card-title-md {
+//     display: block;
+//     font-size: 14px;
+//     line-height: 1.2;
+//     color: #222;
+//     margin: 2px 0;
+//     padding: 8px 0;
+// }
+}
