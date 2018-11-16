@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
+import { UserProvider } from '../user/user';
 
 /**
  * Objeto JSON que maneja las cabeceras
@@ -16,12 +17,12 @@ const httpHeaders = {
 /**
  * Url del servidor
  */
-const urlApi ="http://localhost:8080";
+const urlApi ="http://192.168.43.179:8080";
 
 @Injectable()
 export class UserHttpProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public user : UserProvider) {
     console.log('Hello UserHttpProvider Provider');
   }
 
@@ -70,4 +71,65 @@ export class UserHttpProvider {
     );
   }
 
+  /**
+   * Metodo de enviar la peticion para cerrar sesion
+   * @returns Observable con la respuesta del servidor
+   */
+  logout() : Observable<any> {
+    const url = `${urlApi}/ShoppingCart/Logout`;
+    return this.http.get(url,httpHeaders)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Metodo de enviar la peticion para obtener las el perfil de un usuario
+   * @returns Observable con la respuesta del servidor
+   */
+  getProfile() : Observable<any> {
+    const url = `${urlApi}/ShoppingCart/UDusers?user_id=${this.user.id[0]}`;
+    return this.http.get(url,httpHeaders)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Metodo de enviar la peticion para obtener las el perfil de un usuario
+   * @returns Observable con la respuesta del servidor
+   */
+  deleteProfile() : Observable<any> {
+    const url = `${urlApi}/ShoppingCart/UDusers?user_id=${this.user.id[0]}`;
+    return this.http.delete(url,httpHeaders)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Metodo de enviar la peticion para actualizar los datos de un usuario
+   * @param body Recibe como parametro un Objeto JSON con la data que va a la BD
+   * @returns Observable con la respuesta del servidor
+   */
+  updateProfile(body) : Observable<any> {
+    const url = `${urlApi}//ShoppingCart/UDusers`;
+    return this.http.put(url,body,httpHeaders)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Metodo de enviar la peticion para actualizar los datos de un usuario
+   * @param body Recibe como parametro un Objeto JSON con la data que va a la BD
+   * @returns Observable con la respuesta del servidor
+   */
+  updatePass(body) : Observable<any> {
+    const url = `${urlApi}//ShoppingCart/ChangePass`;
+    return this.http.put(url,body,httpHeaders)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
 }

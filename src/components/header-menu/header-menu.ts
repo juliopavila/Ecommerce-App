@@ -2,23 +2,32 @@ import { Component } from '@angular/core';
 import { MenuController, App, NavController } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 import { DashboardPage } from '../../pages/dashboard/dashboard';
+import { ProfilePage } from '../../pages/profile/profile';
+import { UserProvider } from '../../providers/user/user';
+import { LoginPage } from '../../pages/login/login';
+import { UserHttpProvider } from '../../providers/user-http/user-http';
 
-/**
- * Generated class for the HeaderMenuComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
 @Component({
   selector: 'header-menu',
   templateUrl: 'header-menu.html'
 })
 export class HeaderMenuComponent {
 
+  activeMenu: string;
+
   constructor(
     public menuCtrl: MenuController,
     public app: App,
+    public id : UserProvider,
+    private api: UserHttpProvider,
   ) {
+  }
+
+  menuActive() {
+    this.activeMenu = 'menu1';
+    this.menuCtrl.enable(true, 'menu1');
+    this.menuCtrl.enable(false, 'LoginPage');
   }
 
   /**
@@ -27,8 +36,14 @@ export class HeaderMenuComponent {
    */
   exitapp() : void {
     this.menuCtrl.close();
-    let nav = this.app.getRootNav();
-    nav.setRoot(HomePage);
+    this.api.logout()
+    .subscribe(res => {
+      if(res.status == 200){
+        this.id.clean();
+        let nav = this.app.getRootNav();
+        nav.setRoot(HomePage);
+      }
+    })
   }
 
   /**
@@ -43,6 +58,9 @@ export class HeaderMenuComponent {
       case 1 : {
         nav.setRoot(DashboardPage);
         break;
+      }
+      case 2 : {
+        nav.setRoot(ProfilePage)
       }
     }
   }

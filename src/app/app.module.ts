@@ -1,3 +1,6 @@
+import { ChangePage } from './../pages/change/change';
+import { EditUserPage } from './../pages/edit-user/edit-user';
+import { ProfilePage } from './../pages/profile/profile';
 import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -12,6 +15,7 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { UserHttpProvider } from '../providers/user-http/user-http';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
+import { UserProvider } from '../providers/user/user';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,9 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
     SignUpPage,
     DashboardPage,
     HeaderMenuComponent,
+    ProfilePage,
+    EditUserPage,
+    ChangePage
   ],
   imports: [
     HttpClientModule,
@@ -33,13 +40,17 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
     HomePage,
     LoginPage,
     SignUpPage,
-    DashboardPage
+    DashboardPage,
+    ProfilePage,
+    EditUserPage,
+    ChangePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserHttpProvider
+    UserHttpProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

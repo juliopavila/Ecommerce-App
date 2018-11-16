@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar no-lines>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>PROFILE</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only>
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="fg" *ngFor="let p of profile" (ngSubmit)="presentConfirm()">
+
+    <ion-item class="clear items">
+      <ion-label color="material">New Password</ion-label>
+      <ion-input type="password" formControlName="password" value=""></ion-input>
+    </ion-item>
+
+    <ion-item class="clear items">
+      <ion-label color="material">Confirm password</ion-label>
+      <ion-input type="password" formControlName="confPass" value=""></ion-input>
+    </ion-item>
+
+    <ion-fab bottom right>
+      <button ion-fab color="material" type="submit" class="btn">
+        <ion-icon md="md-checkmark"></ion-icon>
+      </button>
+    </ion-fab>
+    <ion-input [hidden] type="text" value={{p.user_id}} formControlName="user_id" style="display: none"></ion-input>
+  </form>
+</ion-content>

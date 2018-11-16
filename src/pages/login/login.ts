@@ -1,9 +1,10 @@
 import { DashboardPage } from './../dashboard/dashboard';
 import { SignUpPage } from './../sign-up/sign-up';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, MenuController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserHttpProvider } from '../../providers/user-http/user-http';
+import { UserProvider } from '../../providers/user/user';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,7 +22,13 @@ export class LoginPage {
 
   fg : FormGroup;
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private api : UserHttpProvider,) {
+  constructor(
+    public navCtrl: NavController,
+    private alertCtrl: AlertController,
+    private api : UserHttpProvider,
+    private user : UserProvider,
+    public menuCtrl: MenuController,
+  ) {
     this.fg = new FormGroup({
       username: new FormControl (null, [Validators.required,Validators.pattern(/[A-Za-z]+/)]),
       password: new FormControl (null, [Validators.required]),
@@ -29,6 +36,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+    this.menuCtrl.enable(false);
   }
 
   /**
@@ -44,7 +52,9 @@ export class LoginPage {
         .subscribe(res => {
           if(res.status == 200){
             console.log("Inicio de sesion satisfactorio");
-            //this.change(1);
+            console.log(res.user_id);
+            this.user.add(res.user_id);
+            this.change(2);
           } else {
             console.log("Ocurrio un error");
             this.presentAlert();
@@ -71,7 +81,8 @@ export class LoginPage {
       }]
     });
     alert.present();
-    }
+  }
+
   /**
    * Metodo para redireccionar a otra pagina
    * @param {any} op Recibe el caso evaluar a donde se va redireccionar

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar no-lines>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>PROFILE</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only>
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="fg" *ngFor="let p of profile" (ngSubmit)="presentConfirm()">
+    <ion-item class="clear items">
+      <ion-label color="light">Name:</ion-label>
+      <ion-input class="input-text" type="text" value="{{p.name}}" formControlName="user_name"></ion-input>
+    </ion-item>
+
+    <ion-item class="clear items">
+      <ion-label color="light">Last Name:</ion-label>
+      <ion-input type="text" value="{{p.lastname}}" formControlName="user_lastname"></ion-input>
+    </ion-item>
+
+    <ion-item class="clear items">
+      <ion-label color="light">Email:</ion-label>
+      <ion-input type="text" value="{{p.email}}" formControlName="user_email"></ion-input>
+    </ion-item>
+
+    <ion-fab bottom right>
+      <button ion-fab color="material" type="submit" class="btn">
+        <ion-icon md="md-checkmark"></ion-icon>
+      </button>
+    </ion-fab>
+    <ion-input [hidden] type="text" value={{p.user_id}}  formControlName="user_id" style="display: none"></ion-input>
+  </form>
+</ion-content>

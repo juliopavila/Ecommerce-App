@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, MenuController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginPage } from '../login/login';
 import { UserHttpProvider } from '../../providers/user-http/user-http';
@@ -27,7 +27,8 @@ export class SignUpPage {
     public navParams: NavParams,
     public loadingController: LoadingController,
     private api : UserHttpProvider,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public menuCtrl: MenuController
   ) {
     this.fg = new FormGroup({
       name: new FormControl (null, [Validators.required,Validators.pattern(/[A-Za-z]+/)]),
@@ -40,6 +41,7 @@ export class SignUpPage {
   }
 
   ionViewDidLoad() {
+    this.menuCtrl.enable(false);
   }
 
   /**
