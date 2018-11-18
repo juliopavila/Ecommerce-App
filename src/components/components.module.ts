@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { HeaderMenuComponent } from './header-menu/header-menu';
+import { AccordionComponent } from './accordion/accordion';
 @NgModule({
-	declarations: [HeaderMenuComponent],
+	declarations: [HeaderMenuComponent,
+    AccordionComponent],
 	imports: [],
-	exports: [HeaderMenuComponent]
+	exports: [HeaderMenuComponent,
+    AccordionComponent]
 })
 export class ComponentsModule {}

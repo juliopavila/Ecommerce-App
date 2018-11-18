@@ -1,0 +1,60 @@
+page-products {
+  .toolbar-background {
+    background-color: #454545;
+  }
+  .bar-button-default-md,
+  .bar-button-clear-md-default,
+  .bar-button-md-default {
+    color: #ECECEC;
+  }
+  .item-md {
+    background-color: #454545;
+  }
+  .item-input ion-input {
+    color: #454545;
+  }
+  .label-md-light,
+  .item-input .label-md-light,
+  .item-select .label-md-light,
+  .item-datetime .label-md-light {
+    color: #454545;
+  }
+  .item-md.item-input.input-has-focus .item-inner {
+    box-shadow: none;
+  }
+  .toolbar-title-md {
+    color: #ECECEC;
+    font-size: 1.5rem;
+  }
+  .items {
+    background-color: white;
+  }
+  .items-acc {
+    background-color: transparent;
+  }
+  .segment-md .segment-button.segment-activated {
+    //Menu segment border
+    border-color: #ECECEC !important;
+    opacity: 1;
+  }
+  .segment-md .segment-button {
+    color: #ECECEC !important;
+  }
+  .button-outline-md {
+    width: 125px;
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: #454545;
+    color: #454545;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .button-clear-md-dark {
+    border-color: transparent;
+    color: #454545;
+    background-color: transparent;
+    font-size: 25px;
+    margin-left: 80%;
+  }
+}

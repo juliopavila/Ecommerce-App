@@ -6,6 +6,7 @@ import { ProfilePage } from '../../pages/profile/profile';
 import { UserProvider } from '../../providers/user/user';
 import { LoginPage } from '../../pages/login/login';
 import { UserHttpProvider } from '../../providers/user-http/user-http';
+import { ProductsPage } from '../../pages/products/products';
 
 
 @Component({
@@ -60,7 +61,12 @@ export class HeaderMenuComponent {
         break;
       }
       case 2 : {
-        nav.setRoot(ProfilePage)
+        nav.setRoot(ProductsPage);
+        break;
+      }
+      case 3 : {
+        nav.setRoot(ProfilePage);
+        break;
       }
     }
   }

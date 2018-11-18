@@ -1,18 +1,18 @@
 <ion-header>
-    <ion-navbar no-lines>
-      <ion-buttons left>
-        <button ion-button icon-only menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-title text-center>PROFILE</ion-title>
-      <ion-buttons right>
-          <button ion-button icon-only>
-            <ion-icon name="cart"></ion-icon>
-          </button>
-      </ion-buttons>
-    </ion-navbar>
-  </ion-header>
+  <ion-navbar no-lines>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>PROFILE</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only>
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
 
 <ion-content padding *ngFor="let p of dates">
   <ion-item class="items">
@@ -39,5 +39,5 @@
         <button ion-button center outline class="btn-out" (click)="edit(p)">EDIT</button>
       </ion-col>
     </ion-row>
-</ion-grid>
+  </ion-grid>
 </ion-content>

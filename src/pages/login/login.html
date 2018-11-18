@@ -7,7 +7,7 @@
         <img  src="../../assets/imgs/logo-xenlism.png" class="icon-logo">
     </ion-item>
 
-    <form [formGroup]="fg" (ngSubmit)="login()">
+    <form [formGroup]="fg" (ngSubmit)="change(2)">
       <ion-item class="clear">
         <ion-label color="dark" floating>Username</ion-label>
         <ion-input type="text" value=""  class="input-text" formControlName="username"></ion-input>
@@ -19,7 +19,7 @@
       </ion-item>
 
       <ion-item no-lines class="clear" style="text-align: center;">
-        <button ion-button center outline class="btn-out" [disabled]="fg.invalid" type="submit">LOGIN</button>
+        <button ion-button center outline class="btn-out" [disabled]="!fg.invalid" type="submit">LOGIN</button>
       </ion-item>
     </form>
     <ion-item no-lines class="clear">

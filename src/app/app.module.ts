@@ -1,3 +1,4 @@
+import { ProductsPage } from './../pages/products/products';
 import { ChangePage } from './../pages/change/change';
 import { EditUserPage } from './../pages/edit-user/edit-user';
 import { ProfilePage } from './../pages/profile/profile';
@@ -17,6 +18,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { UserProvider } from '../providers/user/user';
 
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+import { PhotoLibrary } from '@ionic-native/photo-library';
+import { AccordionComponent } from '../components/accordion/accordion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -27,11 +36,14 @@ import { UserProvider } from '../providers/user/user';
     HeaderMenuComponent,
     ProfilePage,
     EditUserPage,
-    ChangePage
+    ChangePage,
+    ProductsPage,
+    AccordionComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -43,11 +55,17 @@ import { UserProvider } from '../providers/user/user';
     DashboardPage,
     ProfilePage,
     EditUserPage,
-    ChangePage
+    ChangePage,
+    ProductsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    File,
+    Transfer,
+    Camera,
+    PhotoLibrary,
+    FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserHttpProvider,
     UserProvider
