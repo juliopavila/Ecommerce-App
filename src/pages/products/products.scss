@@ -26,8 +26,11 @@ page-products {
     color: #ECECEC;
     font-size: 1.5rem;
   }
-  .items {
-    background-color: white;
+  .items {//Inputs y items debajo del header
+    background-color: white !important;
+    .item-md {
+      background-color: white;
+    }
   }
   .items-acc {
     background-color: transparent;
@@ -56,5 +59,9 @@ page-products {
     background-color: transparent;
     font-size: 25px;
     margin-left: 80%;
+  }
+  .list-md>.item-wrapper:last-child .item-inner {
+    border-bottom: 0;
+    background-color: white;
   }
 }

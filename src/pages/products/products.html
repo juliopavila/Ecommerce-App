@@ -32,73 +32,33 @@
   <div [ngSwitch]="products">
     <!-- Segment Add -->
     <ion-list *ngSwitchCase="'add'">
-      <!-- <form> -->
-      <ion-item class="clear items">
-        <ion-label color="material">Title:</ion-label>
-        <ion-input type="text" value=""></ion-input>
-      </ion-item>
-
-      <ion-item class="clear items">
-        <ion-label color="material">Description:</ion-label>
-        <ion-input type="text" value=""></ion-input>
-      </ion-item>
-
-      <ion-item class="clear items">
-        <ion-label color="material">Stock Available:</ion-label>
-        <ion-input type="number" value=""></ion-input>
-      </ion-item>
-
-      <ion-item class="clear items">
-        <ion-label color="material">Price: $</ion-label>
-        <ion-input type="number" value=""></ion-input>
-      </ion-item>
-
-      <ion-item class="clear items" no-lines>
-        <button ion-button center outline (click)="presentActionSheet()">Product Image</button>
-      </ion-item>
-
-      <ion-fab bottom right>
-        <button ion-fab color="material" type="submit" class="btn">
-          <ion-icon md="md-checkmark"></ion-icon>
-        </button>
-      </ion-fab>
-
-      <!-- <ion-input [hidden] type="text" value={{p.user_id}} formControlName="user_id" style="display: none"></ion-input> -->
-      <!-- </form> -->
-    </ion-list>
-
-    <!-- Segment Update -->
-    <ion-list *ngSwitchCase="'update'">
-      <accordion>
-        <p title>Example 1</p>
-        <!-- <form> -->
-        <ion-item class="clear items-acc">
+      <form [formGroup]="fg" (ngSubmit)="uploadImage()">
+        <ion-item class="clear items">
           <ion-label color="material">Title:</ion-label>
-          <ion-input type="text" value=""></ion-input>
+          <ion-input type="text" value="" formControlName="title"></ion-input>
         </ion-item>
 
-        <ion-item class="clear items-acc">
+        <ion-item class="clear items">
           <ion-label color="material">Description:</ion-label>
-          <ion-input type="text" value=""></ion-input>
+          <ion-input type="text" value="" formControlName="description"></ion-input>
         </ion-item>
 
-        <ion-item class="clear items-acc">
+        <ion-item class="clear items">
           <ion-label color="material">Stock Available:</ion-label>
-          <ion-input type="number" value=""></ion-input>
+          <ion-input type="number" value="" formControlName="stock"></ion-input>
         </ion-item>
 
-        <ion-item class="clear items-acc">
+        <ion-item class="clear items">
           <ion-label color="material">Price: $</ion-label>
-          <ion-input type="number" value=""></ion-input>
+          <ion-input type="number" value="" formControlName="price"></ion-input>
         </ion-item>
 
-        <ion-item class="clear items-acc" no-lines>
+        <ion-item class="clear items" no-lines>
           <button ion-button center outline (click)="presentActionSheet()">Product Image</button>
         </ion-item>
 
-        <ion-item class="clear items-acc" no-lines>
-          <img src="../../assets/imgs/bg.jpg" />
-        </ion-item>
+        <p align="center"><img src="{{image}}"></p>
+
 
         <ion-fab bottom right>
           <button ion-fab color="material" type="submit" class="btn">
@@ -106,39 +66,67 @@
           </button>
         </ion-fab>
 
-        <!-- <ion-input [hidden] type="text" value={{p.user_id}} formControlName="user_id" style="display: none"></ion-input> -->
-        <!-- </form> -->
-      </accordion>
+        <ion-input [hidden] type="text" value={{uId}} formControlName="user_id" style="display: none"></ion-input>
+      </form>
+    </ion-list>
+
+    <!-- Segment Update -->
+    <ion-list *ngSwitchCase="'update'">
+      <accordion *ngFor="let p of products_data">
+        <p title>{{p.product_title}}</p>
+        <form [formGroup]="fg" (ngSubmit)="uploadImage()">
+          <ion-item class="clear items-acc">
+            <ion-label color="material">Title:</ion-label>
+            <ion-input type="text" value="{{p.product_title}}"></ion-input>
+          </ion-item>
+
+          <ion-item class="clear items-acc">
+            <ion-label color="material">Description:</ion-label>
+            <ion-input type="text" value="{{p.product_description}}"></ion-input>
+          </ion-item>
+
+          <ion-item class="clear items-acc">
+            <ion-label color="material">Stock Available:</ion-label>
+            <ion-input type="number" value="{{p.product_stock}}"></ion-input>
+          </ion-item>
+
+          <ion-item class="clear items-acc">
+            <ion-label color="material">Price: $</ion-label>
+            <ion-input type="number" value="{{p.product_price}}"></ion-input>
+          </ion-item>
+
+          <ion-item class="clear items-acc" no-lines>
+            <button ion-button center outline (click)="presentActionSheet()">Product Image</button>
+          </ion-item>
+
+          <ion-item class="clear items-acc" no-lines>
+            <img src="{{urlApi}}/portal_content/img/{{p.img_name}}" />
+          </ion-item>
+
+          <ion-fab bottom right>
+            <button ion-fab color="material" type="submit" class="btn" (click)="presentAlertUpdate()">
+              <ion-icon md="md-checkmark"></ion-icon>
+            </button>
+          </ion-fab>
+          <ion-input [hidden] type="text" value={{p.user_id}} formControlName="user_id" style="display: none"></ion-input>
+        </form>
+    </accordion>
     </ion-list>
 
     <!-- Segment Delete -->
     <ion-list *ngSwitchCase="'delete'">
-      <accordion>
-        <p title>Example 1</p>
-        <ion-item class="clear items-acc">
-          <ion-label color="material">Title:</ion-label>
-        </ion-item>
-
-        <ion-item class="clear items-acc">
-          <ion-label color="material">Description:</ion-label>
-        </ion-item>
-
-        <ion-item class="clear items-acc">
-          <ion-label color="material">Stock Available:</ion-label>
-        </ion-item>
-
-        <ion-item class="clear items-acc">
-          <ion-label color="material">Price: $</ion-label>
-        </ion-item>
-
-        <ion-item class="clear items-acc" no-lines>
-          <img src="../../assets/imgs/bg.jpg" />
-        </ion-item>
-
-        <button color="dark" ion-button clear>
-          <ion-icon md="md-trash"></ion-icon>
-        </button>
-      </accordion>
+      <ion-list>
+        <ion-item-sliding #item class="items" *ngFor="let p of products_data">
+          <ion-item>
+            <p>{{p.product_title}}</p>
+          </ion-item>
+          <ion-item-options side="right">
+            <button ion-button color="danger" (click)="presentAlert(p.user_id, p.product_id)">
+              DELETE
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
     </ion-list>
   </div>
 </ion-content>

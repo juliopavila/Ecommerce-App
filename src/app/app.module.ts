@@ -25,6 +25,9 @@ import { Camera } from '@ionic-native/camera';
 import { PhotoLibrary } from '@ionic-native/photo-library';
 import { AccordionComponent } from '../components/accordion/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { ProductsHttpProvider } from '../providers/products-http/products-http';
+import { UrlProvider } from '../providers/url/url';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AccordionComponent
   ],
   imports: [
-    HttpClientModule,
+  HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(MyApp)
@@ -66,9 +69,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Camera,
     PhotoLibrary,
     FilePath,
+    FileTransfer,
+    FileTransferObject,
+    File,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserHttpProvider,
-    UserProvider
+    UserProvider,
+    ProductsHttpProvider,
+    UrlProvider
   ]
 })
 export class AppModule {}
