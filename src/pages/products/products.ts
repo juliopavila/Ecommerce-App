@@ -17,6 +17,7 @@ import { UrlProvider } from '../../providers/url/url';
 export class ProductsPage {
 
   fg: FormGroup;
+  upfg : FormGroup;
   products: string = "add";
   isAndroid: boolean = false;
   image: any;
@@ -42,8 +43,17 @@ export class ProductsPage {
       description: new FormControl(null, [Validators.required]),
       stock: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
-      user_id: new FormControl(null, [Validators.required])
+      user_id: new FormControl(null, [Validators.required]),
+    });
+    this.upfg = new FormGroup({
+      title: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required]),
+      stock: new FormControl(null, [Validators.required]),
+      price: new FormControl(null, [Validators.required]),
+      user_id: new FormControl(null, [Validators.required]),
+      product_id: new FormControl(null, [Validators.required])
     })
+
   }
 
   ionViewDidLoad() {
@@ -177,6 +187,7 @@ export class ProductsPage {
         text: "Accept",
         role: "Accept",
         handler: () => {
+          this.update();
         }
       }]
     });
@@ -204,6 +215,21 @@ export class ProductsPage {
     }, err => {
       console.log(err);
     })
+  }
+
+  update(){
+    if (this.upfg.valid) {
+      console.log(this.upfg.value);
+      this.api.updateFile(this.upfg.value, this.image)
+        .then((res: any) => {
+          if (res === 200) {
+            alert('Update Succesfully');
+            this.change(1);
+          } else {
+            console.log("error")
+          }
+        })
+    }
   }
 
   /**

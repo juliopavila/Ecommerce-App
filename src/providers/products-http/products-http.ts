@@ -106,4 +106,33 @@ export class ProductsHttpProvider {
       catchError(this.handleError)
     );
   }
+
+  updateFile (body, base64Image) {
+    return new Promise((res, rej) => {
+      const url = `${this.url.getUrl()}/ShoppingCart/CRUDProducts`;
+      //Create File Transfer Object
+      const fileTransfer : FileTransferObject = this.transfer.create();
+      //random int
+      let random = Math.floor(Math.random() * 100);
+      //options transfer
+      let options : FileUploadOptions = {
+        fileKey: 'file',
+        fileName : 'img_'+random+".jpg",
+        chunkedMode: false,
+        httpMethod : 'PUT',
+        mimeType: "image/jpeg",
+        headers: {},
+        params : body
+      }
+      //file transfer action
+      fileTransfer.upload(base64Image, url ,options)
+      .then((data) => {
+        res(200)
+        console.log(data);
+      }, (err) => {
+        res(400);
+        console.log(JSON.stringify(err));
+      })
+    })
+  }
 }

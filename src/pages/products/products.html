@@ -74,43 +74,44 @@
     <ion-list *ngSwitchCase="'update'">
       <accordion *ngFor="let p of products_data">
         <p title>{{p.product_title}}</p>
-        <form [formGroup]="fg" (ngSubmit)="uploadImage()">
+        <form [formGroup]="upfg" (ngSubmit)="presentAlertUpdate()">
           <ion-item class="clear items-acc">
             <ion-label color="material">Title:</ion-label>
-            <ion-input type="text" value="{{p.product_title}}"></ion-input>
+            <ion-input type="text" value="{{p.product_title}}" formControlName="title"></ion-input>
           </ion-item>
 
           <ion-item class="clear items-acc">
             <ion-label color="material">Description:</ion-label>
-            <ion-input type="text" value="{{p.product_description}}"></ion-input>
+            <ion-input type="text" value="{{p.product_description}}" formControlName="description"></ion-input>
           </ion-item>
 
           <ion-item class="clear items-acc">
             <ion-label color="material">Stock Available:</ion-label>
-            <ion-input type="number" value="{{p.product_stock}}"></ion-input>
+            <ion-input type="number" value="{{p.product_stock}}" formControlName="stock"></ion-input>
           </ion-item>
 
           <ion-item class="clear items-acc">
             <ion-label color="material">Price: $</ion-label>
-            <ion-input type="number" value="{{p.product_price}}"></ion-input>
+            <ion-input type="number" value="{{p.product_price}}" formControlName="price"></ion-input>
           </ion-item>
 
           <ion-item class="clear items-acc" no-lines>
-            <button ion-button center outline (click)="presentActionSheet()">Product Image</button>
+            <button ion-button center outline (click)="presentActionSheet()" type="button">Product Image</button>
           </ion-item>
 
           <ion-item class="clear items-acc" no-lines>
+            <p align="center"><img src="{{image}}"></p>
             <img src="{{urlApi}}/portal_content/img/{{p.img_name}}" />
           </ion-item>
-
           <ion-fab bottom right>
-            <button ion-fab color="material" type="submit" class="btn" (click)="presentAlertUpdate()">
+            <button ion-fab color="material" type="submit" class="btn">
               <ion-icon md="md-checkmark"></ion-icon>
             </button>
           </ion-fab>
+          <ion-input [hidden] type="text" value={{p.product_id}} formControlName="product_id" style="display: none"></ion-input>
           <ion-input [hidden] type="text" value={{p.user_id}} formControlName="user_id" style="display: none"></ion-input>
         </form>
-    </accordion>
+      </accordion>
     </ion-list>
 
     <!-- Segment Delete -->

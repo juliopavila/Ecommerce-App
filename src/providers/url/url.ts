@@ -14,7 +14,7 @@ export class UrlProvider {
   }
 
   getUrl () {
-    let url = "http://10.55.240.144:8080";
+    let url = "http://192.168.0.115:8080";
     return url
   }
 
