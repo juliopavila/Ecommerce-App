@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, AlertController, ModalController }
 import { HomePage } from '../home/home';
 import { EditUserPage } from '../edit-user/edit-user';
 import { ChangePage } from '../change/change';
+import { UserProvider } from '../../providers/user/user';
 
 
 @IonicPage()
@@ -20,7 +21,8 @@ export class ProfilePage {
     public navParams: NavParams,
     private api: UserHttpProvider,
     private alertCtrl: AlertController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public id: UserProvider
   ) {
   }
 
@@ -52,6 +54,7 @@ export class ProfilePage {
       .subscribe(res => {
         console.log(res);
         if (res.status == 200) {
+          this.id.clean();
           this.redirect(1);
         }
       }, err => {

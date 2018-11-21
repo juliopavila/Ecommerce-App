@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-navbar no-lines>
     <ion-buttons left>
@@ -7,28 +6,31 @@
       </button>
     </ion-buttons>
     <ion-buttons right>
-        <button ion-button icon-only>
-          <ion-icon name="cart"></ion-icon>
-        </button>
+      <button ion-button icon-only>
+        <ion-icon name="cart"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
   <ion-item no-lines>
-      <ion-label color="light"><ion-icon name="search"></ion-icon></ion-label>
-      <ion-input type="text" value="" placeholder="What are you looking for?"></ion-input>
+    <ion-toolbar no-border-top>
+        <ion-searchbar (ionInput)="onCancel($event)" (ionCancel)="onCancel($event)" [(ngModel)]="keySearch" (keyup)="filterProducts(keySearch)" placeholder="What are you looking for?"></ion-searchbar>
+      </ion-toolbar>
   </ion-item>
 </ion-header>
 
 
 <ion-content padding>
   <ion-card *ngFor="let p of products">
-    <img src="{{urlApi}}/portal_content/img/{{p.img_name}}"/>
-    <ion-card-content>
-      <ion-card-title>
-        {{p.product_title}}
+    <div *ngIf="p.state">
+      <img src="{{urlApi}}/portal_content/img/{{p.img_name}}" />
+      <ion-card-content>
+        <ion-card-title>
+          {{p.product_title}}
         </ion-card-title>
-      <p>
-        {{p.product_description}}
-      </p>
-    </ion-card-content>
+        <p>Description: {{p.product_description}}</p>
+        <p>Stock: {{p.product_stock}}</p>
+        <p>Price: ${{p.product_price}}</p>
+      </ion-card-content>
+    </div>
   </ion-card>
 </ion-content>
