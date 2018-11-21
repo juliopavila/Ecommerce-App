@@ -63,6 +63,9 @@ export class ProductsPage {
     this.getProducts();
   }
 
+  /**
+   * Metodo para realizar la peticion para subir una imagen creando un producto
+  */
   uploadImage() {
     if (this.fg.valid) {
       this.api.uploadFile(this.fg.value, this.image)
@@ -77,6 +80,9 @@ export class ProductsPage {
     }
   }
 
+  /**
+   * Metodo para tomar una foto con la camara nativa del telefono
+   */
   takePicture(): void {
     const options: CameraOptions = {
       quality: 70,
@@ -97,6 +103,9 @@ export class ProductsPage {
     return this.loadingCtrl.create({ content: 'Uploading product...' });
   }
 
+  /**
+   * Metodo para tomar la imagen de la galeria
+   */
   takeFromLib() {
     const options: CameraOptions = {
       quality: 70,
@@ -194,6 +203,10 @@ export class ProductsPage {
     alert.present();
   }
 
+  /**
+   * Metodo para obtener los productos del usuario realizando la peticion
+   * al provider
+   */
   getProducts() {
     this.products_data = [];
     this.api.getProducts()
@@ -206,6 +219,9 @@ export class ProductsPage {
       })
   }
 
+  /**
+   * Metodo para obtener eliminar un producto del usuario
+   */
   delete(user_id, product_id) {
     this.api.deleteProducts(user_id, product_id)
     .subscribe(res => {
@@ -217,6 +233,10 @@ export class ProductsPage {
     })
   }
 
+  /**
+   * Metodo para obtener actualizar un producto del usuario
+   * agregandole todos los campos
+   */
   update(){
     if (this.upfg.valid) {
       console.log(this.upfg.value);

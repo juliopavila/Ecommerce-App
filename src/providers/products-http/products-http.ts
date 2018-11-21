@@ -17,10 +17,6 @@ const httpHeaders = {
     })
 };
 
-/**
- * Url del servidor
- */
-
 @Injectable()
 export class ProductsHttpProvider {
 
@@ -30,9 +26,9 @@ export class ProductsHttpProvider {
     public http: HttpClient,
     public user: UserProvider,
     private transfer: FileTransfer,
-    public loadingCtrl : LoadingController,
-    public url : UrlProvider
-    ) {
+    public loadingCtrl: LoadingController,
+    public url: UrlProvider
+  ) {
   }
 
   /**
@@ -54,85 +50,107 @@ export class ProductsHttpProvider {
     return ('Something bad happened; please try again later.');
   }
 
-  uploadFile (body, base64Image) {
+  /**
+   * Metodo para subir la imagen al servidor y crear un producto
+   * @param body el form de los productos
+   * @param base64Image el archivo con la imagen en base 64
+   */
+  uploadFile(body, base64Image) {
     return new Promise((res, rej) => {
       const url = `${this.url.getUrl()}/ShoppingCart/CRUDProducts`;
-      //Create File Transfer Object
-      const fileTransfer : FileTransferObject = this.transfer.create();
-      //random int
+      //Creamos un objeto file transfer
+      const fileTransfer: FileTransferObject = this.transfer.create();
+      //Creamos un numero aleatorio que posteriormente sera el nombre de la imagen
       let random = Math.floor(Math.random() * 100);
-      //options transfer
-      let options : FileUploadOptions = {
+      //Opciones de la transferencia
+      let options: FileUploadOptions = {
         fileKey: 'file',
-        fileName : 'img_'+random+".jpg",
+        fileName: 'img_' + random + ".jpg",
         chunkedMode: false,
-        httpMethod : 'POST',
+        httpMethod: 'POST',
         mimeType: "image/jpeg",
         headers: {},
-        params : body
+        params: body
       }
-      //file transfer action
-      fileTransfer.upload(base64Image, url ,options)
-      .then((data) => {
-        res(200)
-        console.log(data);
-      }, (err) => {
-        res(400);
-        console.log(JSON.stringify(err));
-      })
+      //Accion para ejecutar la peticion http al endpoint
+      fileTransfer.upload(base64Image, url, options)
+        .then((data) => {
+          res(200)
+          console.log(data);
+        }, (err) => {
+          res(400);
+          console.log(JSON.stringify(err));
+        })
     })
   }
 
-  getAllProducts () : Observable<any> {
+  /**
+   * Metodo para realizar la peticion al servidor de todos los productos
+   * @returns Retorna un json con todos los productos
+   */
+  getAllProducts(): Observable<any> {
     const url = `${this.url.getUrl()}/ShoppingCart/GetAllProducts`;
-    return this.http.get(url,httpHeaders)
-    .pipe(
-      catchError(this.handleError)
-    );
+    return this.http.get(url, httpHeaders)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  getProducts () : Observable<any> {
+  /**
+  * Metodo para realizar la peticion al servidor de todos los productos
+  * @returns Retorna un json con todos los productos
+  */
+  getProducts(): Observable<any> {
     const url = `${this.url.getUrl()}/ShoppingCart/CRUDProducts?user_id=${this.user.id[0]}`;
-    return this.http.get(url,httpHeaders)
-    .pipe(
-      catchError(this.handleError)
-    );
+    return this.http.get(url, httpHeaders)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  deleteProducts (user_id, product_id) : Observable<any> {
+  /**
+  * Metodo para realizar la peticion al servidor de  los productos
+  * @returns Retorna un json con los productos de un usuario
+  */
+  deleteProducts(user_id, product_id): Observable<any> {
     const url = `${this.url.getUrl()}/ShoppingCart/CRUDProducts?user_id=${user_id}&product_id=${product_id}`;
-    return this.http.delete(url,httpHeaders)
-    .pipe(
-      catchError(this.handleError)
-    );
+    return this.http.delete(url, httpHeaders)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  updateFile (body, base64Image) {
+  /**
+   * Metodo para subir la imagen al servidor y actualizar un producto
+   * @param body el form de los productos
+   * @param base64Image el archivo con la imagen en base 64
+   */
+  updateFile(body, base64Image) {
     return new Promise((res, rej) => {
       const url = `${this.url.getUrl()}/ShoppingCart/CRUDProducts`;
-      //Create File Transfer Object
-      const fileTransfer : FileTransferObject = this.transfer.create();
-      //random int
+      //Creamos un objeto file transfer
+      const fileTransfer: FileTransferObject = this.transfer.create();
+      //Creamos un numero aleatorio que posteriormente sera el nombre de la imagen
       let random = Math.floor(Math.random() * 100);
-      //options transfer
-      let options : FileUploadOptions = {
+      //Opciones de la transferencia
+      let options: FileUploadOptions = {
         fileKey: 'file',
-        fileName : 'img_'+random+".jpg",
+        fileName: 'img_' + random + ".jpg",
         chunkedMode: false,
-        httpMethod : 'PUT',
+        httpMethod: 'PUT',
         mimeType: "image/jpeg",
         headers: {},
-        params : body
+        params: body
       }
-      //file transfer action
-      fileTransfer.upload(base64Image, url ,options)
-      .then((data) => {
-        res(200)
-        console.log(data);
-      }, (err) => {
-        res(400);
-        console.log(JSON.stringify(err));
-      })
+      //Accion para ejecutar la peticion http al endpoint
+      fileTransfer.upload(base64Image, url, options)
+        .then((data) => {
+          res(200)
+          console.log(data);
+        }, (err) => {
+          res(400);
+          console.log(JSON.stringify(err));
+        })
     })
   }
 }

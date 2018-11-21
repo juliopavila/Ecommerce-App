@@ -6,13 +6,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserHttpProvider } from '../../providers/user-http/user-http';
 import { UserProvider } from '../../providers/user/user';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -47,7 +40,6 @@ export class LoginPage {
   login() : void {
     console.log(this.fg.value);
     if(this.fg.valid){
-      console.log("Entrando hacer la peticion");
       this.api.login(this.fg.value)
         .subscribe(res => {
           if(res.status == 200){

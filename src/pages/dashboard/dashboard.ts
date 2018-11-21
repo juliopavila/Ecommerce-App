@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams, ViewController, MenuController } f
 import { ProductsHttpProvider } from '../../providers/products-http/products-http';
 import { UrlProvider } from '../../providers/url/url';
 import { FormControl } from '@angular/forms';
-import { empty } from 'rxjs/Observer';
 
 @IonicPage()
 @Component({
@@ -32,10 +31,16 @@ export class DashboardPage {
     this.searchControl = new FormControl();
   }
 
+  /**
+   * Metodo para no mostrar el back-button
+  */
   ionViewWillEnter() {
     this.viewCtrl.showBackButton(false);
   }
 
+  /**
+   * Metodo para al cargar la vista ejecute estos metodos
+   */
   ionViewDidLoad() {
     this.menuCtrl.enable(true);
     this.getProducts();
@@ -43,6 +48,10 @@ export class DashboardPage {
     });
   }
 
+  /**
+   * Metodo para relizar la solicitud al provider para
+   * ejecutar la peticion
+   */
   getProducts() {
     this.products = [];
     this.api.getAllProducts()
@@ -56,6 +65,11 @@ export class DashboardPage {
       })
   }
 
+  /**
+   * Metodo para realizar la busqueda del searchbar cada 3 letras
+   * y si consigue realiza cambio de estados
+   * @param key Recibe como parametro el texto
+  */
   filterProducts(key: string) {
     if (((key).split("")).length === 3) {
       this.products.forEach(p => {
@@ -69,6 +83,10 @@ export class DashboardPage {
     }
   }
 
+  /**
+   *  Metodo para cambiar de estado del evento
+   * @param e Recibe como parametro el evento
+   */
   onCancel(e) {
     if (e.target.value == "") {
       this.products.forEach(p => p.state = true);

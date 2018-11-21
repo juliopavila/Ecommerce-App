@@ -13,7 +13,13 @@
   </ion-navbar>
   <ion-item no-lines>
     <ion-toolbar no-border-top>
-        <ion-searchbar (ionInput)="onCancel($event)" (ionCancel)="onCancel($event)" [(ngModel)]="keySearch" (keyup)="filterProducts(keySearch)" placeholder="What are you looking for?"></ion-searchbar>
+        <ion-searchbar
+          (ionInput)="onCancel($event)"
+          (ionCancel)="onCancel($event)"
+          [(ngModel)]="keySearch"
+          (keyup)="filterProducts(keySearch)"
+          placeholder="What are you looking for?"
+        ></ion-searchbar>
       </ion-toolbar>
   </ion-item>
 </ion-header>
