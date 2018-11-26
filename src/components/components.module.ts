@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { HeaderMenuComponent } from './header-menu/header-menu';
 import { AccordionComponent } from './accordion/accordion';
+import { ShoppingModalComponent } from './shopping-modal/shopping-modal';
 @NgModule({
 	declarations: [HeaderMenuComponent,
-    AccordionComponent],
+    AccordionComponent,
+    ShoppingModalComponent],
 	imports: [],
 	exports: [HeaderMenuComponent,
-    AccordionComponent]
+    AccordionComponent,
+    ShoppingModalComponent]
 })
 export class ComponentsModule {}

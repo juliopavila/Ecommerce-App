@@ -33,9 +33,12 @@
         <ion-card-title>
           {{p.product_title}}
         </ion-card-title>
+        <p>user: {{p.user_id}}</p>
         <p>Description: {{p.product_description}}</p>
         <p>Stock: {{p.product_stock}}</p>
         <p>Price: ${{p.product_price}}</p>
+        <br>
+        <button ion-button clear full color="material" (click)="presentCommentsModal(p.product_id,p.user_id)">Watch Comments</button>
       </ion-card-content>
     </div>
   </ion-card>

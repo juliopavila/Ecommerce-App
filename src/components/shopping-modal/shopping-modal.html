@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar no-lines>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>COMMENTS</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item-sliding #item class="items" *ngFor="let c of prodComments">
+      <ion-item>
+        <p>{{c.comment_content}}</p>
+      </ion-item>
+      <ion-item-options side="right" *ngIf="c.state == true || c.owner == true">
+        <button ion-button color="danger" (click)="presentDeleteAlert(c.comment_id)">
+          DELETE
+        </button>
+      </ion-item-options>
+      <ion-item-options side="left" *ngIf="c.state == true">
+        <form [formGroup]="fgu" (ngSubmit)="presentUpdateAlert()">
+          <button ion-button color="material" type="submit">
+            <ion-input type="text" value={{c.comment_content}} formControlName="comment_content"></ion-input>
+          </button>
+          <ion-input [hidden] type="text" value={{c.comment_id}} formControlName="comment_id" style="display: none"></ion-input>
+        </form>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <form [formGroup]="fg" (ngSubmit)="submit()">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-9>
+            <ion-input placeholder="What do you think about this product?" clearInput formControlName="comment_content"
+              value=""></ion-input>
+          </ion-col>
+          <ion-col col-3><button ion-button clear [disabled]="fg.invalid">Submit</button></ion-col>
+        </ion-row>
+        <ion-input [hidden] type="text" value={{product_id}} formControlName="product_id" style="display: none"></ion-input>
+        <ion-input [hidden] type="text" value={{user_id}} formControlName="user_id" style="display: none"></ion-input>
+      </ion-grid>
+    </form>
+  </ion-toolbar>
+</ion-footer>

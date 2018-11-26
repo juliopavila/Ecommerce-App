@@ -5,12 +5,6 @@ import { LoginPage } from '../login/login';
 import { UserHttpProvider } from '../../providers/user-http/user-http';
 import { HomePage } from '../home/home';
 
-/**
- * Generated class for the SignUpPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -19,24 +13,24 @@ import { HomePage } from '../home/home';
 })
 export class SignUpPage {
 
-  fg : FormGroup;
-
+  fg: FormGroup;
+  loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingController: LoadingController,
-    private api : UserHttpProvider,
+    private api: UserHttpProvider,
     private alertCtrl: AlertController,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
   ) {
     this.fg = new FormGroup({
-      name: new FormControl (null, [Validators.required,Validators.pattern(/[A-Za-z]+/)]),
-      lastname: new FormControl (null, [Validators.required,Validators.pattern(/[A-Za-z]+/)]),
-      email: new FormControl (null, [Validators.required,Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)]),
-      username: new FormControl (null, [Validators.required,Validators.pattern(/[A-Za-z]+/)]),
-      password: new FormControl (null, [Validators.required]),
-      confPass: new FormControl (null, [Validators.required]),
+      name: new FormControl(null, [Validators.required, Validators.pattern(/[A-Za-z]+/)]),
+      lastname: new FormControl(null, [Validators.required, Validators.pattern(/[A-Za-z]+/)]),
+      email: new FormControl(null, [Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)]),
+      username: new FormControl(null, [Validators.required, Validators.pattern(/[A-Za-z]+/)]),
+      password: new FormControl(null, [Validators.required]),
+      confPass: new FormControl(null, [Validators.required]),
     }, this.passwordMatchValidator)
   }
 
@@ -45,10 +39,20 @@ export class SignUpPage {
   }
 
   /**
+ * Metodo para que muestre un spinner de alerta
+ * mientra realiza la peticion
+ */
+presentLoadingDefault() {
+  this.loading = this.loadingController.create({
+    content: 'Please wait...'
+  });
+  this.loading.present();
+}
+  /**
    * Metodo para evaluar si las claves son las mismas
    * @param fg Recibe como parametro el FormGroup
    */
-  passwordMatchValidator = function(fg: FormGroup) {
+  passwordMatchValidator = function (fg: FormGroup) {
     return fg.get('password').value === fg.get('confPass').value ? null : { 'mismatch': true };
   }
 
@@ -57,21 +61,22 @@ export class SignUpPage {
    * @returns void
    */
   register(): void {
-    if(this.fg.valid){
+    if (this.fg.valid) {
       this.api.postSignUp(this.fg.value)
-      .subscribe(res => {
-        console.log(res.status);
-        if(res.status == 200){
-          this.presentAlert();
-        } else {
+        .subscribe(res => {
+          console.log(res.status);
+          if (res.status == 200) {
+            this.loading.dismiss();
+            this.presentAlert();
+          } else {
+            this.loading.dismiss();
+            this.errorAlert();
+          }
+        }, err => {
           this.errorAlert();
-        }
-      }, err => {
-        console.log(err);
-        this.errorAlert();
-      });
+        });
     }
-    else{
+    else {
       console.log("No es valido");
     }
   }
@@ -80,13 +85,13 @@ export class SignUpPage {
   * Metodo para mostrar alerta de confirmacion
   * @returns void
   */
-  presentAlert() : void {
+  presentAlert(): void {
     let alert = this.alertCtrl.create({
       title: 'Successfully',
       subTitle: 'Account succesfully created',
       buttons: [{
-        text : "Accept",
-        role : "Accept",
+        text: "Accept",
+        role: "Accept",
         handler: () => {
           this.redirect(1);
         }
@@ -99,13 +104,13 @@ export class SignUpPage {
   * Metodo para mostrar alerta de confirmacion
   * @returns void
   */
-  errorAlert() : void {
+  errorAlert(): void {
     let alert = this.alertCtrl.create({
       title: 'Error',
       subTitle: 'The account cannot be created, try again.',
       buttons: [{
-        text : "Accept",
-        role : "Accept",
+        text: "Accept",
+        role: "Accept",
         handler: () => {
         }
       }]
@@ -118,13 +123,13 @@ export class SignUpPage {
    * @param {any} op Recibe el caso evaluar a donde se va redireccionar
    * @returns Returns void
    */
-  redirect(op) : void {
-    switch(op){
-      case 1 : {
+  redirect(op): void {
+    switch (op) {
+      case 1: {
         this.navCtrl.setRoot(LoginPage);
         break;
       }
-      case 2 : {
+      case 2: {
         this.navCtrl.setRoot(HomePage);
         break;
       }

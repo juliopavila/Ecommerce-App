@@ -17,13 +17,14 @@ import { UrlProvider } from '../../providers/url/url';
 export class ProductsPage {
 
   fg: FormGroup;
-  upfg : FormGroup;
+  upfg: FormGroup;
   products: string = "add";
   isAndroid: boolean = false;
   image: any;
   uId: any;
   products_data = [];
-  urlApi
+  urlApi;
+  loading;
 
   constructor(
     public navCtrl: NavController,
@@ -64,6 +65,17 @@ export class ProductsPage {
   }
 
   /**
+   * Metodo para que muestre un spinner de alerta
+   * mientra realiza la peticion
+   */
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Uploading ...'
+    });
+    this.loading.present();
+  }
+
+  /**
    * Metodo para realizar la peticion para subir una imagen creando un producto
   */
   uploadImage() {
@@ -71,10 +83,11 @@ export class ProductsPage {
       this.api.uploadFile(this.fg.value, this.image)
         .then((res: any) => {
           if (res === 200) {
-            alert('Upload Succesfully');
+            this.loading.dismiss();
+            this.uploadAlert('Confirmation', 'Upload Succesfully');
             this.change(1);
           } else {
-            console.log("error")
+            console.log("Error");
           }
         })
     }
@@ -183,6 +196,25 @@ export class ProductsPage {
   * Metodo para mostrar alerta de confirmacion
   * @returns void
   */
+  uploadAlert(t,msg): void {
+    let alert = this.alertCtrl.create({
+      title: t,
+      subTitle: msg,
+      buttons: [{
+        text: "Accept",
+        role: "Accept",
+        handler: () => {
+          this.change(1);
+        }
+      }]
+    });
+    alert.present();
+  }
+
+  /**
+  * Metodo para mostrar alerta de confirmacion
+  * @returns void
+  */
   presentAlertUpdate(): void {
     let alert = this.alertCtrl.create({
       title: 'Confirmation',
@@ -224,20 +256,20 @@ export class ProductsPage {
    */
   delete(user_id, product_id) {
     this.api.deleteProducts(user_id, product_id)
-    .subscribe(res => {
-      if(res.status == 200){
-        this.change(1);
-      }
-    }, err => {
-      console.log(err);
-    })
+      .subscribe(res => {
+        if (res.status == 200) {
+          this.change(1);
+        }
+      }, err => {
+        console.log(err);
+      })
   }
 
   /**
    * Metodo para obtener actualizar un producto del usuario
    * agregandole todos los campos
    */
-  update(){
+  update() {
     if (this.upfg.valid) {
       console.log(this.upfg.value);
       this.api.updateFile(this.upfg.value, this.image)

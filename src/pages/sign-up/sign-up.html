@@ -9,7 +9,7 @@
     <img  src="../../assets/imgs/logo-xenlism.png" class="icon-logo">
   </ion-item>
 
-  <form [formGroup]="fg" (ngSubmit)="register()">
+  <form [formGroup]="fg" (ngSubmit)="register(); presentLoadingDefault()">
     <ion-item class="clear">
       <ion-label color="light" floating>Name</ion-label>
       <ion-input class="input-text" type="text" value="" formControlName="name"></ion-input>

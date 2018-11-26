@@ -1,9 +1,10 @@
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, MenuController, ModalController } from 'ionic-angular';
 import { ProductsHttpProvider } from '../../providers/products-http/products-http';
 import { UrlProvider } from '../../providers/url/url';
 import { FormControl } from '@angular/forms';
+import { ShoppingModalComponent } from '../../components/shopping-modal/shopping-modal';
 
 @IonicPage()
 @Component({
@@ -26,7 +27,8 @@ export class DashboardPage {
     private viewCtrl: ViewController,
     public menuCtrl: MenuController,
     public api: ProductsHttpProvider,
-    public url: UrlProvider
+    public url: UrlProvider,
+    public modalCtrl: ModalController
   ) {
     this.searchControl = new FormControl();
   }
@@ -44,8 +46,6 @@ export class DashboardPage {
   ionViewDidLoad() {
     this.menuCtrl.enable(true);
     this.getProducts();
-    this.searchControl.valueChanges.subscribe(search => {
-    });
   }
 
   /**
@@ -91,5 +91,16 @@ export class DashboardPage {
     if (e.target.value == "") {
       this.products.forEach(p => p.state = true);
     }
+  }
+
+  presentCommentsModal(product, owner){
+    let data = {
+      product_id : product,
+      user_id : this.id.id[0],
+      owner_id : owner
+    }
+    console.log(data);
+    let modal = this.modalCtrl.create(ShoppingModalComponent, data);
+    modal.present();
   }
 }

@@ -28,6 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { ProductsHttpProvider } from '../providers/products-http/products-http';
 import { UrlProvider } from '../providers/url/url';
+import { ShoppingModalComponent } from '../components/shopping-modal/shopping-modal';
+import { CommentsProvider } from '../providers/comments/comments';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { UrlProvider } from '../providers/url/url';
     EditUserPage,
     ChangePage,
     ProductsPage,
-    AccordionComponent
+    AccordionComponent,
+    ShoppingModalComponent
   ],
   imports: [
   HttpClientModule,
@@ -59,7 +62,8 @@ import { UrlProvider } from '../providers/url/url';
     ProfilePage,
     EditUserPage,
     ChangePage,
-    ProductsPage
+    ProductsPage,
+    ShoppingModalComponent
   ],
   providers: [
     StatusBar,
@@ -76,7 +80,8 @@ import { UrlProvider } from '../providers/url/url';
     UserHttpProvider,
     UserProvider,
     ProductsHttpProvider,
-    UrlProvider
+    UrlProvider,
+    CommentsProvider
   ]
 })
 export class AppModule {}

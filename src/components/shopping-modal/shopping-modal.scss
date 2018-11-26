@@ -1,0 +1,23 @@
+shopping-modal {
+  .toolbar-background {
+    background-color: #454545;
+  }
+  .bar-button-default-md,
+  .bar-button-clear-md-default,
+  .bar-button-md-default {
+    color: #ECECEC;
+  }
+
+  .toolbar-title-md{
+    color : #ECECEC;
+    font-size: 1.5rem;
+  }
+
+  .input-md[clearInput] .text-input{
+    color: #ECECEC;
+  }
+
+  .button-clear-md {
+    color: #ECECEC;
+  }
+}

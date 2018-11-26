@@ -1,7 +1,7 @@
 import { DashboardPage } from './../dashboard/dashboard';
 import { SignUpPage } from './../sign-up/sign-up';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, MenuController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserHttpProvider } from '../../providers/user-http/user-http';
 import { UserProvider } from '../../providers/user/user';
@@ -14,6 +14,7 @@ import { UserProvider } from '../../providers/user/user';
 export class LoginPage {
 
   fg : FormGroup;
+  loading
 
   constructor(
     public navCtrl: NavController,
@@ -21,6 +22,7 @@ export class LoginPage {
     private api : UserHttpProvider,
     private user : UserProvider,
     public menuCtrl: MenuController,
+    public loadingCtrl: LoadingController
   ) {
     this.fg = new FormGroup({
       username: new FormControl (null, [Validators.required,Validators.pattern(/[A-Za-z]+/)]),
@@ -30,6 +32,17 @@ export class LoginPage {
 
   ionViewDidLoad() {
     this.menuCtrl.enable(false);
+  }
+
+  /**
+   * Metodo para que muestre un spinner de alerta
+   * mientra realiza la peticion
+   */
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present();
   }
 
   /**
@@ -43,12 +56,11 @@ export class LoginPage {
       this.api.login(this.fg.value)
         .subscribe(res => {
           if(res.status == 200){
-            console.log("Inicio de sesion satisfactorio");
-            console.log(res.user_id);
+            this.loading.dismiss();
             this.user.add(res.user_id);
             this.change(2);
           } else {
-            console.log("Ocurrio un error");
+            this.loading.dismiss();
             this.presentAlert();
           }
         }, err => {
