@@ -4,8 +4,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductsHttpProvider } from '../../providers/products-http/products-http';
 import { UserProvider } from '../../providers/user/user';
-import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
 import { UrlProvider } from '../../providers/url/url';
+import { ChangeImagePage } from './../change-image/change-image';
 
 
 
@@ -25,6 +25,7 @@ export class ProductsPage {
   products_data = [];
   urlApi;
   loading;
+
 
   constructor(
     public navCtrl: NavController,
@@ -51,8 +52,7 @@ export class ProductsPage {
       description: new FormControl(null, [Validators.required]),
       stock: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
-      user_id: new FormControl(null, [Validators.required]),
-      product_id: new FormControl(null, [Validators.required])
+      user_id: new FormControl(null, [Validators.required])
     })
 
   }
@@ -70,7 +70,7 @@ export class ProductsPage {
    */
   presentLoadingDefault() {
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading ...'
+      content: 'Please wait ...'
     });
     this.loading.present();
   }
@@ -79,16 +79,16 @@ export class ProductsPage {
    * Metodo para realizar la peticion para subir una imagen creando un producto
   */
   uploadImage() {
+    this.presentLoadingDefault();
     if (this.fg.valid) {
+      this.loading.present();
       this.api.uploadFile(this.fg.value, this.image)
         .then((res: any) => {
           if (res === 200) {
-            this.loading.dismiss();
             this.uploadAlert('Confirmation', 'Upload Succesfully');
             this.change(1);
-          } else {
-            console.log("Error");
           }
+          this.loading.dismiss();
         })
     }
   }
@@ -110,10 +110,6 @@ export class ProductsPage {
     }, (err) => {
       // Handle error
     });
-  }
-
-  showLoader(): any {
-    return this.loadingCtrl.create({ content: 'Uploading product...' });
   }
 
   /**
@@ -215,7 +211,7 @@ export class ProductsPage {
   * Metodo para mostrar alerta de confirmacion
   * @returns void
   */
-  presentAlertUpdate(): void {
+  presentAlertUpdate(id): void {
     let alert = this.alertCtrl.create({
       title: 'Confirmation',
       subTitle: 'Do you want to update this product?',
@@ -228,7 +224,7 @@ export class ProductsPage {
         text: "Accept",
         role: "Accept",
         handler: () => {
-          this.update();
+          this.update(id);
         }
       }]
     });
@@ -240,27 +236,33 @@ export class ProductsPage {
    * al provider
    */
   getProducts() {
+    this.presentLoadingDefault();
     this.products_data = [];
     this.api.getProducts()
       .subscribe(res => {
+        this.loading.dismiss();
         this.products_data = res;
         this.urlApi = this.url.getUrl();
         console.log(this.products);
       }, err => {
+        this.loading.dismiss();
         console.log(err);
       })
   }
 
   /**
    * Metodo para obtener eliminar un producto del usuario
-   */
+  */
   delete(user_id, product_id) {
+    this.presentLoadingDefault();
     this.api.deleteProducts(user_id, product_id)
       .subscribe(res => {
         if (res.status == 200) {
+          this.loading.dismiss();
           this.change(1);
         }
       }, err => {
+        this.loading.dismiss();
         console.log(err);
       })
   }
@@ -268,27 +270,35 @@ export class ProductsPage {
   /**
    * Metodo para obtener actualizar un producto del usuario
    * agregandole todos los campos
-   */
-  update() {
+  */
+  update(id) {
+    this.presentLoadingDefault();
     if (this.upfg.valid) {
-      console.log(this.upfg.value);
-      this.api.updateFile(this.upfg.value, this.image)
-        .then((res: any) => {
-          if (res === 200) {
-            alert('Update Succesfully');
-            this.change(1);
-          } else {
-            console.log("error")
+      let body = this.upfg.value;
+      body.product_id = id;
+      this.api.updateProductsData(this.upfg.value)
+        .subscribe(res => {
+          console.log(res.status);
+          if(res.status == 200){
+            this.loading.dismiss();
+            this.uploadAlert('Confirmation','Succesfully product updated.');
           }
         })
     }
   }
 
   /**
- * Metodo para redireccionar a otra pagina
- * @param {any} op Recibe el caso evaluar a donde se va redireccionar
- * @returns Returns void
- */
+   * Metodo para cambiar de vista para subir imagen
+  */
+  updateImage(body){
+    this.navCtrl.push(ChangeImagePage, body)
+  }
+
+  /**
+  * Metodo para redireccionar a otra pagina
+  * @param {any} op Recibe el caso evaluar a donde se va redireccionar
+  * @returns Returns void
+  */
   change(op): void {
     switch (op) {
       case 1: {

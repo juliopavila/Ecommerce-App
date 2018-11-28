@@ -30,6 +30,7 @@ import { ProductsHttpProvider } from '../providers/products-http/products-http';
 import { UrlProvider } from '../providers/url/url';
 import { ShoppingModalComponent } from '../components/shopping-modal/shopping-modal';
 import { CommentsProvider } from '../providers/comments/comments';
+import { ChangeImagePage } from '../pages/change-image/change-image';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CommentsProvider } from '../providers/comments/comments';
     ChangePage,
     ProductsPage,
     AccordionComponent,
+    ChangeImagePage,
     ShoppingModalComponent
   ],
   imports: [
@@ -62,6 +64,7 @@ import { CommentsProvider } from '../providers/comments/comments';
     ProfilePage,
     EditUserPage,
     ChangePage,
+    ChangeImagePage,
     ProductsPage,
     ShoppingModalComponent
   ],

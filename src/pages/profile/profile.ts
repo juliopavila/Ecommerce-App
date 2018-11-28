@@ -1,6 +1,6 @@
 import { UserHttpProvider } from './../../providers/user-http/user-http';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { EditUserPage } from '../edit-user/edit-user';
 import { ChangePage } from '../change/change';
@@ -15,6 +15,7 @@ import { UserProvider } from '../../providers/user/user';
 export class ProfilePage {
 
   dates: any[] = [];
+  loading;
 
   constructor(
     public navCtrl: NavController,
@@ -22,6 +23,7 @@ export class ProfilePage {
     private api: UserHttpProvider,
     private alertCtrl: AlertController,
     public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController,
     public id: UserProvider
   ) {
   }
@@ -34,9 +36,11 @@ export class ProfilePage {
    * en un arreglo el perfil del usuario
    */
   ngOnInit() {
+    this.presentLoadingDefault()
     this.dates = [];
     this.api.getProfile()
       .subscribe(res => {
+        this.loading.dismiss();
         this.dates = res;
         console.log(this.dates);
       }, err => {
@@ -50,6 +54,7 @@ export class ProfilePage {
    * @returns void
    */
   delete(): void {
+    this.presentLoadingDefault();
     this.api.deleteProfile()
       .subscribe(res => {
         console.log(res);
@@ -57,7 +62,9 @@ export class ProfilePage {
           this.id.clean();
           this.redirect(1);
         }
+        this.loading.dismiss();
       }, err => {
+        this.loading.dismiss();
         console.log(err);
       });
   }
@@ -107,7 +114,9 @@ export class ProfilePage {
   * @returns void
   */
   edit(data): void {
+    this.presentLoadingDefault();
     this.navCtrl.push(EditUserPage, data);
+    this.loading.dismiss();
   }
 
   /**
@@ -117,5 +126,16 @@ export class ProfilePage {
   */
   changepass(body): void {
     this.navCtrl.push(ChangePage, body);
+  }
+
+  /**
+  * Metodo para que muestre un spinner de alerta
+  * mientra realiza la peticion
+  */
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present();
   }
 }

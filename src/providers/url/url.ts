@@ -12,7 +12,7 @@ export class UrlProvider {
    * @returns Retorna la ip del servidor
    */
   getUrl() : string {
-    let url = "http://localhost:8080";
+    let url = "http://192.168.43.179:8080";
     return url;
   }
 

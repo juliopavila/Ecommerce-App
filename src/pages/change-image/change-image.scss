@@ -1,0 +1,53 @@
+page-change-image {
+  .toolbar-background {
+    background-color: #454545;
+  }
+
+  .bar-button-default-md,
+  .bar-button-clear-md-default,
+  .bar-button-md-default {
+    color: #ECECEC;
+  }
+
+  .item-md {
+    background-color: #454545;
+  }
+
+  .item-input ion-input {
+    color: #454545;
+  }
+
+  .label-md-light,
+  .item-input .label-md-light,
+  .item-select .label-md-light,
+  .item-datetime .label-md-light {
+    color: #454545;
+  }
+
+  .item-md.item-input.input-has-focus .item-inner {
+    box-shadow: none;
+  }
+
+  .toolbar-title-md {
+    color: #ECECEC;
+    font-size: 1.5rem;
+  }
+
+  .items {
+    //Inputs y items debajo del header
+    background-color: white !important;
+    .item-md {
+      background-color: white;
+    }
+  }
+
+  .button-outline-md {
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: #454545;
+    color: #454545;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+}

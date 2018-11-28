@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserHttpProvider } from '../../providers/user-http/user-http';
 import { ProfilePage } from '../profile/profile';
@@ -13,11 +13,14 @@ export class EditUserPage {
 
   profile: any[] = [];
   fg: FormGroup;
+  loading;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private api: UserHttpProvider,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public loadingCtrl: LoadingController
   ) {
     this.fg = new FormGroup({
       user_id: new FormControl(null, [Validators.required]),
@@ -43,13 +46,16 @@ export class EditUserPage {
    * @returns void
    */
   edit(): void {
+    this.presentLoadingDefault();
     if (this.fg.valid) {
       this.api.updateProfile(this.fg.value)
         .subscribe(res => {
           if (res.status == 200) {
+            this.loading.dismiss();
             this.presentAlert();
           }
         }, err => {
+          this.loading.dismiss();
           console.log(err);
         });
     }
@@ -115,5 +121,16 @@ export class EditUserPage {
         break;
       }
     }
+  }
+
+  /**
+  * Metodo para que muestre un spinner de alerta
+  * mientra realiza la peticion
+  */
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present();
   }
 }

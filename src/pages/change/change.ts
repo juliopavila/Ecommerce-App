@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HomePage } from '../home/home';
 import { UserHttpProvider } from '../../providers/user-http/user-http';
 import { UserProvider } from '../../providers/user/user';
-
-/**
- * Generated class for the ChangePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -21,13 +14,15 @@ export class ChangePage {
 
   fg: FormGroup;
   profile: any[] = [];
+  loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private api: UserHttpProvider,
-    public id : UserProvider,
+    public id: UserProvider,
+    public loadingCtrl: LoadingController
   ) {
     this.fg = new FormGroup({
       user_id: new FormControl(null, [Validators.required]),
@@ -45,25 +40,28 @@ export class ChangePage {
   }
 
   /**
- * Metodo para evaluar si las claves son las mismas
- * @param fg Recibe como parametro el FormGroup
- */
+  * Metodo para evaluar si las claves son las mismas
+  * @param fg Recibe como parametro el FormGroup
+  */
   passwordMatchValidator = function (fg: FormGroup) {
     return fg.get('password').value === fg.get('confPass').value ? null : { 'mismatch': true };
   }
 
   /**
- * Metodo para solicitar al servicio que realice la peticion para actualizar las notas
- * @returns void
- */
+  * Metodo para solicitar al servicio que realice la peticion para actualizar las notas
+  * @returns void
+  */
   changePassword(): void {
+    this.presentLoadingDefault();
     if (this.fg.valid) {
       this.api.updatePass(this.fg.value)
         .subscribe(res => {
           if (res.status == 200) {
+            this.loading.dismiss();
             this.presentAlert();
           }
         }, err => {
+          this.loading.dismiss();
           console.log(err);
         });
     }
@@ -130,5 +128,16 @@ export class ChangePage {
         break;
       }
     }
+  }
+
+  /**
+  * Metodo para que muestre un spinner de alerta
+  * mientra realiza la peticion
+  */
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present();
   }
 }

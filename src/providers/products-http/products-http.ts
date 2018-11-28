@@ -127,7 +127,7 @@ export class ProductsHttpProvider {
    */
   updateFile(body, base64Image) {
     return new Promise((res, rej) => {
-      const url = `${this.url.getUrl()}/ShoppingCart/CRUDProducts`;
+      const url = `${this.url.getUrl()}/ShoppingCart/UpdateFile`;
       //Creamos un objeto file transfer
       const fileTransfer: FileTransferObject = this.transfer.create();
       //Creamos un numero aleatorio que posteriormente sera el nombre de la imagen
@@ -152,5 +152,16 @@ export class ProductsHttpProvider {
           console.log(JSON.stringify(err));
         })
     })
+  }
+
+  /**
+   * Metodo para subir actualizar imagen
+  */
+  updateProductsData(body) {
+    const url = `${this.url.getUrl()}/ShoppingCart/CRUDProducts`;
+    return this.http.put(url, body, httpHeaders)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 }

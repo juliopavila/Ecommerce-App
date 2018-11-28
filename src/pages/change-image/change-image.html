@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>PRODUCTS</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item class="clear items" no-lines>
+    <button ion-button center outline (click)="presentActionSheet()">New Product Image</button>
+  </ion-item>
+  <p align="center"><img src="{{image}}"></p>
+  <ion-fab bottom right>
+    <button ion-fab color="material" (click)="uploadImage()">
+      <ion-icon md="md-checkmark"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
