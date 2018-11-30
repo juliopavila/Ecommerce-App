@@ -11,8 +11,8 @@ export class UrlProvider {
    * Metodo en el provider para generalizar la ip
    * @returns Retorna la ip del servidor
    */
-  getUrl() : string {
-    let url = "http://192.168.43.179:8080";
+  getUrl(): string {
+    let url = "http://192.168.0.119:8080";
     return url;
   }
 

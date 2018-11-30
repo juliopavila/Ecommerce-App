@@ -32,7 +32,6 @@ export class ChangePage {
   }
 
   ionViewDidLoad() {
-    console.log(this.navParams.get('user_id'))
     let a = {
       'user_id': this.navParams.get('user_id')
     }

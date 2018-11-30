@@ -6,21 +6,16 @@
       </button>
     </ion-buttons>
     <ion-buttons right>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="cart()">
         <ion-icon name="cart"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
   <ion-item no-lines>
     <ion-toolbar no-border-top>
-        <ion-searchbar
-          (ionInput)="onCancel($event)"
-          (ionCancel)="onCancel($event)"
-          [(ngModel)]="keySearch"
-          (keyup)="filterProducts(keySearch)"
-          placeholder="What are you looking for?"
-        ></ion-searchbar>
-      </ion-toolbar>
+      <ion-searchbar (ionInput)="onCancel($event)" (ionCancel)="onCancel($event)" [(ngModel)]="keySearch" (keyup)="filterProducts(keySearch)"
+        placeholder="What are you looking for?"></ion-searchbar>
+    </ion-toolbar>
   </ion-item>
 </ion-header>
 
@@ -37,7 +32,16 @@
         <p>Stock: {{p.product_stock}}</p>
         <p>Price: ${{p.product_price}}</p>
         <br>
-        <button ion-button clear full color="material" (click)="presentCommentsModal(p.product_id,p.user_id)">Watch Comments</button>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <button ion-button outline color="material" (click)="presentCommentsModal(p.product_id,p.user_id)">Comments</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button outline right color="material" (click)="addToCart(p)">Add to cart</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card-content>
     </div>
   </ion-card>

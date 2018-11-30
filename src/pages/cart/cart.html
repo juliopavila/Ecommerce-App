@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar no-lines text-center>
+    <ion-title>CART</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item *ngFor="let p of products">
+    <ion-avatar item-start>
+      <img src="{{urlApi}}/portal_content/img/{{p.img_name}}">
+    </ion-avatar>
+    <ion-grid item-content>
+      <ion-row>
+        <ion-col col-6>
+          <h2>{{p.product_title}}</h2>
+          <p>{{p.product_description}}</p>
+          <button ion-button clear (click)="remove(p)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-6 text-center>
+          <h2>Price:</h2>
+          <p>${{p.product_price}}</p>
+          <button ion-button clear (click)="presentPrompt(p)">{{p.quantity}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar text-center>
+    <ion-buttons center>
+      <button ion-button (click)="checkout()">
+        CHECKOUT
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

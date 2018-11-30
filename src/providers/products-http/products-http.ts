@@ -157,9 +157,17 @@ export class ProductsHttpProvider {
   /**
    * Metodo para subir actualizar imagen
   */
-  updateProductsData(body) {
+  updateProductsData(body): Observable<any> {
     const url = `${this.url.getUrl()}/ShoppingCart/CRUDProducts`;
     return this.http.put(url, body, httpHeaders)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  checkout(body): Observable<any> {
+    const url = `${this.url.getUrl()}/ShoppingCart/Checkout`;
+    return this.http.post(url, body, httpHeaders)
       .pipe(
         catchError(this.handleError)
       );

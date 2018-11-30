@@ -4,7 +4,9 @@ page-dashboard {
     background-color: #454545;
   }
 
-  .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default{
+  .bar-button-default-md,
+  .bar-button-clear-md-default,
+  .bar-button-md-default {
     color: #ECECEC;
   }
 
@@ -12,28 +14,36 @@ page-dashboard {
     background-color: #454545;
   }
 
-  .item-input ion-input{
+  .item-input ion-input {
     color: #ECECEC;
   }
 
-  .item-md.item-input.input-has-focus .item-inner{
+  .item-md.item-input.input-has-focus .item-inner {
     box-shadow: none;
   }
 
-//   .card-md p {
-//     margin: 0 0 2px;
-//     font-size: 12px;
-//     font-weight: normal;
-//     line-height: 1.5;
-//     color: #222;
-//   }
+  .cart-buttons {
+    .button-small-md {
+      margin: 10px;
+      float: right;
+      height: 2.1em;
+      font-size: 1.3rem;
+      padding: 0 0.9em;
+      background-color: #454545;
+    }
+  }
 
-//   .card-title-md {
-//     display: block;
-//     font-size: 14px;
-//     line-height: 1.2;
-//     color: #222;
-//     margin: 2px 0;
-//     padding: 8px 0;
-// }
+  .bgColor {
+    background: #727171;
+    margin-right: 5px;
+
+  }
+
+  //Botones del cart
+  .button-outline-md-material {
+    border-color: #4e4e4e;
+    color: #4e4e4e;
+    background-color: transparent;
+    width: 119px;
+  }
 }

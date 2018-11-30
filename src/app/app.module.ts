@@ -31,6 +31,9 @@ import { UrlProvider } from '../providers/url/url';
 import { ShoppingModalComponent } from '../components/shopping-modal/shopping-modal';
 import { CommentsProvider } from '../providers/comments/comments';
 import { ChangeImagePage } from '../pages/change-image/change-image';
+import { CartPage } from '../pages/cart/cart';
+import { CartServiceProvider } from '../providers/cart-service/cart-service';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { ChangeImagePage } from '../pages/change-image/change-image';
     ProductsPage,
     AccordionComponent,
     ChangeImagePage,
-    ShoppingModalComponent
+    ShoppingModalComponent,
+    CartPage
   ],
   imports: [
   HttpClientModule,
@@ -66,7 +70,8 @@ import { ChangeImagePage } from '../pages/change-image/change-image';
     ChangePage,
     ChangeImagePage,
     ProductsPage,
-    ShoppingModalComponent
+    ShoppingModalComponent,
+    CartPage
   ],
   providers: [
     StatusBar,
@@ -84,7 +89,8 @@ import { ChangeImagePage } from '../pages/change-image/change-image';
     UserProvider,
     ProductsHttpProvider,
     UrlProvider,
-    CommentsProvider
+    CommentsProvider,
+    CartServiceProvider
   ]
 })
 export class AppModule {}

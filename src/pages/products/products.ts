@@ -277,9 +277,8 @@ export class ProductsPage {
       let body = this.upfg.value;
       body.product_id = id;
       this.api.updateProductsData(this.upfg.value)
-        .subscribe(res => {
-          console.log(res.status);
-          if(res.status == 200){
+        .subscribe(response => {
+          if(response.status == 200){
             this.loading.dismiss();
             this.uploadAlert('Confirmation','Succesfully product updated.');
           }

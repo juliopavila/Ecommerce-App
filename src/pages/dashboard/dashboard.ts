@@ -1,10 +1,12 @@
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, MenuController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, MenuController, ModalController, AlertController } from 'ionic-angular';
 import { ProductsHttpProvider } from '../../providers/products-http/products-http';
 import { UrlProvider } from '../../providers/url/url';
 import { FormControl } from '@angular/forms';
 import { ShoppingModalComponent } from '../../components/shopping-modal/shopping-modal';
+import { CartPage } from '../cart/cart';
+import { CartServiceProvider } from '../../providers/cart-service/cart-service';
 
 @IonicPage()
 @Component({
@@ -19,6 +21,7 @@ export class DashboardPage {
   items: any;
   searchControl: FormControl;
   keySearch: string = "";
+  productsInCart: any[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -28,7 +31,9 @@ export class DashboardPage {
     public menuCtrl: MenuController,
     public api: ProductsHttpProvider,
     public url: UrlProvider,
-    public modalCtrl: ModalController
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    public cartService: CartServiceProvider
   ) {
     this.searchControl = new FormControl();
   }
@@ -43,7 +48,7 @@ export class DashboardPage {
   /**
    * Metodo para al cargar la vista ejecute estos metodos
    */
-  ionViewDidLoad() {
+  ngOnInit() {
     this.menuCtrl.enable(true);
     this.getProducts();
   }
@@ -57,7 +62,8 @@ export class DashboardPage {
     this.api.getAllProducts()
       .subscribe(res => {
         this.products = res;
-        this.products.forEach(p => p.state = true);
+        this.products.forEach(p => { p.state = true });
+        this.cartService.getProductsInCart(this.products);
         this.urlApi = this.url.getUrl();
         console.log(this.products);
       }, err => {
@@ -93,14 +99,50 @@ export class DashboardPage {
     }
   }
 
-  presentCommentsModal(product, owner){
+  presentCommentsModal(product, owner) {
     let data = {
-      product_id : product,
-      user_id : this.id.id[0],
-      owner_id : owner
+      product_id: product,
+      user_id: this.id.id[0],
+      owner_id: owner
     }
     console.log(data);
     let modal = this.modalCtrl.create(ShoppingModalComponent, data);
     modal.present();
   }
+
+  addToCart(p) {
+    if (p.product_stock >= 1) {
+      // p.product_stock--;
+      this.cartService.addToCart(p);
+      this.alert('Confirmation', 'Succesfully added to cart');
+    }else{
+      this.alert('Error','Unfortunately there is no in stock');
+    }
+  }
+
+  cart() {
+    this.cartService.cart();
+
+    this.navCtrl.push(CartPage);
+  }
+
+  /**
+  * Metodo para mostrar alerta de confirmacion
+  * @returns void
+  */
+  alert(t, msg): void {
+    let alert = this.alertCtrl.create({
+      title: t,
+      subTitle: msg,
+      buttons: [{
+        text: "Accept",
+        role: "Accept",
+        handler: () => {
+        }
+      }]
+    });
+    alert.present();
+  }
+
 }
+
